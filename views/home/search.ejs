@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3Raw - Images</title>
+    <link rel="stylesheet" href="css/owl/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/hover.css">
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css" />
+    <link rel="stylesheet" href="grid-gallery.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/footer.css"> -->
+</head>
+
+<body>
+    <!--TODO:Back to top-->
+    <a id="button"></a>
+
+    <!-- /#sidebar-wrapper -->
+    <!--TODO: This navigation-->
+    <nav class="navbar navbar-expand-lg Linear-Gradient-nav fixed-top fix-z-1">
+        <div class="container">
+        <!-- <img class="ds-hover-icon rounded navbar-brand ml-4" src="images/list.png" id="menu-toggle-both"
+            style="width:22px;height:auto;"> -->
+        <a class="navbar-brand ds-hover nav-link" href="../">
+            <img src="images/7.png" width="20" height="auto" alt="logo">
+            3RAW
+        </a>
+        <!--TODO:SEARCH-->
+        <form action="/search" method="post">
+            <div class="search-navbar" id="search-navbar">
+                <input class="" type="search" name="search" id="search"
+                    placeholder="Search anything you need: images, #tag, @user, etc...">
+            </div>
+        </form>
+        <!--TODO:END SEARCH-->
+        <!--TODO: upload image-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto">
+
+                <!--TODO: show name on navbar -->
+                <% if(data.length>0){ %>
+                <li class="ds-hover nav-item text-white">
+                    <a class="nav-link pl-1" href="/home/profile">Hello: <%= data %></a>
+                </li>
+                <li class="ds-hover nav-item text-white">
+                    <a class="nav-link pl-1" href="../messenger">Message</a>
+                </li>
+                <li class="ds-hover nav-item text-white">
+                    <a class="nav-link" href="../home/logout">Logout</a>
+                </li>
+                <% } else{ %>
+                <li class="ds-hover nav-item text-white">
+                    <a class="nav-link pl-1" href="../login">Login</a>
+                </li>
+                <li class="ds-hover nav-item text-white">
+                    <a class="nav-link" href="../register">Create a account</a>
+                </li>
+                <% } %>
+
+
+            </ul>
+        </div>
+    </div>
+    </nav>
+    <!--TODO:This Header-->
+    <header>
+      
+    </header>
+
+    <!--TODO:Content-->
+
+    <section class="gallery-block grid-gallery">
+        <div class="row">
+            <div class="container">
+                <div class="text-white pt-4 p-3 h2">Search: "<%= owl %>"</div>
+                <div class="row">
+                    <% if(content.length>0){ %>
+                    <% for(var i=0;i< content.length;i++){%>
+                        <% if(content[i].status_photo == 1 || content[i].status_photo == 0){ %>
+                    <div class="col-md-12 col-lg-4 item">
+                        <div class="card ds-card">
+
+                            <a class="lightbox" href="/u/<%= content[i].id %>">
+                                <img class="img-fluid image scale-on-hover box-profile-home"
+                                    src="/uploads/<%= content[i].images_url %>">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title pt-2">Title: <%= content[i].title %></h5>
+                                <p class="card-text">Description: <%= content[i].images_description %></p>
+                                <% if(content[i].status_photo == 1){ %>
+                                <p class="card-text">Verify by Admin <img src="images/check-mark.png" alt="" srcset="">
+                                    Upload by ID#<%= content[i].id_user %> <img src="images/upload.png" alt=""
+                                        srcset=""></p>
+                                <% } %>
+                                <% if(content[i].status_photo == 0){ %>
+                                    <p class="card-text">Verify by Admin <img src="images/delete.png" alt="" srcset="">
+                                        Upload by ID#<%= content[i].id_user %> <img src="images/upload.png" alt=""
+                                            srcset=""></p>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                    <% } %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+    <script>
+        baguetteBox.run('.grid-gallery', {
+            animation: 'slideIn'
+        });
+    </script>
+    <!--TODO:test load <div id="LoadNewsFeed"></div> -->
+
+    <footer class="d-inline-flex footer Linear-Gradient-nav fixed-bottom p-2">
+        <div class="d-inline-flex float-left ds-footer-color-text pl-5">
+            © 2019 3AT, Inc
+        </div>
+
+    </footer>
+    <!--TODO: That's button upload-->
+    <div class="ds-upload position-fixed">
+        <button class="" id="login" type="" onclick="location.href='/upload';"> <img src="images/photo.png" alt=""
+                srcset=""> Upload</button>
+    </div>
+
+    <!--JS-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/owl/owl.carousel.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/owl/owl.js"></script>
+    <!--TODO: load <script src="js/loadHTML.js"></script> -->
+    <script id="dsq-count-scr" src="//127-0-0-1-5500.disqus.com/count.js" async></script>
+    <script src="js/totop.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+    <script>
+        baguetteBox.run('.tz-gallery');
+    </script> -->
+</body>
+
+</html>

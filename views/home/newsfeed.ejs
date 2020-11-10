@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="css/owl/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/hover.css">
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+</head>
+
+<body>
+    <!--TODO:Back to top-->
+    <a id="button"></a>
+    <!-- ! THis nav -->
+    <nav class="navbar navbar-expand-lg Linear-Gradient-nav fixed-top fix-z-1">
+        <div class="container">
+            <a class="navbar-brand ds-hover nav-link" href="../home">
+                <img src="images/7.png" width="20" height="auto" alt="logo">
+                3RAW
+            </a>
+            <!--TODO:SEARCH-->
+            <form action="/search" method="post">
+                <div class="search-navbar" id="search-navbar">
+                    <input class="" type="search" name="search" id="search"
+                        placeholder="Search anything you need: images, #tag, @user, etc...">
+                </div>
+            </form>
+
+            <!--TODO:END SEARCH-->
+            <!--TODO: upload image-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+
+                    <!--TODO: show name on navbar -->
+                    <% if(username_nav.length>0){ %>
+                    <li class="ds-hover nav-item text-white">
+                        <a class="nav-link pl-1" href="/home/profile">Hello: <%= username_nav %></a>
+                    </li>
+                    <li class="ds-hover nav-item text-white">
+                        <a class="nav-link pl-1" href="../messenger">Message</a>
+                    </li>
+                    <li class="ds-hover nav-item text-white">
+                        <a class="nav-link" href="../home/logout">Logout</a>
+                    </li>
+                    <% } else{ %>
+                    <li class="ds-hover nav-item text-white">
+                        <a class="nav-link pl-1" href="../login">Login</a>
+                    </li>
+                    <li class="ds-hover nav-item text-white">
+                        <a class="nav-link" href="../register">Create a account</a>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--TODO:This post-->
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 mx-auto">
+                <div class="card transform-on-hover w-100">
+                    <div class="card-header bg-transparent">
+                        <% if (url_avatar == null){ %>  
+                            <img class="box-icon float-left" src="images/user.jpg" alt="" sizes="" srcset=""> 
+                        <% } else{ %>
+                            <img class="box-icon float-left" src="uploads/<%= url_avatar %>" alt="" sizes="" srcset="">
+                        <% } %>  
+                      
+                        <a class="d-inline-flex p-2 ds-username-title" href="/p/<%= id_username %>"><%= username %></a>
+                        <img class="d-inline-flex float-right p-2" src="images/more.png" alt="" srcset=""
+                            data-toggle="modal" data-target="#viewMore">
+                    </div>
+                    <div class="card-body bg-transparent">
+                        <img class="card-img-top img-fluid" src="
+                        <%= img_url %>
+                        " alt="Card image cap"></img>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img id="love" src="images/hearts.png">
+                                    </div>
+                                    <!-- <div class="col-2">
+                                        <img id="love" src="images/chat.png" data-toggle="modal"
+                                            data-target="#viewComment">
+                                    </div> -->
+                                    <div class="col-9"></div>
+                                    <div class="col-1">
+                                        <img id="love" src="images/paper-plane.png" data-toggle="modal"
+                                            data-target="#viewShare">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">Title: <%= title %></li>
+                            <li class="list-group-item">Description: <%= img_description %></li>
+                            <% if(status_photo == 0 ){%>
+                                <p class="list-group-item">Waiting for verify. <img src="images/delete.png" alt="" srcset=""></p>
+                            <% } %> 
+                            <% if(status_photo == 1 ){%>
+                                <p class="list-group-item">Verify by Admin <img src="images/check-mark.png" alt="" srcset=""></p>
+                            <% } %>
+
+                        </ul>
+                    </div>
+                </div>
+                <!--TODO:THIS COMMENT DISQUE-->
+                <div id="disqus_thread"></div>
+                <script>
+
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                    /*
+                    var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+                    */
+                    (function () { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://127-0-0-1-5500.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments
+                        powered by
+                        Disqus.</a></noscript>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="d-flex p-2"></div>
+                <h4 class="text-white text-center"><b>Recommend for you</b></h4>
+                <div class="d-flex p-2"></div>
+                
+                <!--TODO: reconned-->
+                <% if(data){%>
+                    <% for(var i=0;i< data.length;i++){%>
+                        <div class="row ds-box">
+                                <div class="col-md-5 col-sm-12 dropdown">
+                                    <a href="/u/<%= data[i].id %>">
+                                    <img class="ds-thum" src="uploads/<%= data[i].images_url %>"
+                                        alt="<%= data[i].images_description %>" srcset="">
+                                    </a>
+                                    <div class="dropdown-content">
+                                        <img class="ds-thum-ho"
+                                            src="uploads/<%= data[i].images_url %>"
+                                            alt="<%= data[i].images_description %>">
+                                        <div class="desc"><%= data[i].title %></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-sm-12">
+                                    <a href="/u/<%= data[i].id %>">
+                                    <div class="d-flex text-right"><%= data[i].title %></div>
+                                    </a>
+                                    <a href="/p/<%= data[i].id_user %>">
+                                    <div class="d-flex text-right">by user#<%= data[i].id_user %></div>
+                                    </a>
+                                    <div class="d-flex text-right">Description:</div>
+                                    <div class="d-flex text-right"><%= data[i].images_description %></div>
+                                </div>
+                            </div>
+                            <div class="d-flex p-2"></div>
+                        <%}%>
+                    <%}%>   
+            </div>
+        </div>
+    </div>
+    <!--TODO: This view more-->
+    <!-- Modal -->
+    <div class="modal fade" id="viewMore" tabindex="-1" role="dialog" aria-labelledby="viewMoreCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="ds-hover-modal list-group-item">
+                            Report photo
+                        </li>
+                        <li class="ds-hover-modal list-group-item">
+                            Go to Post
+                        </li>
+                        <li class="ds-hover-modal list-group-item">Copy url</li>
+                        <a href="<%= img_url %>">
+                            <li class="ds-hover-modal list-group-item">Download</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--TODO: This share-->
+    <!-- Modal -->
+    <div class="modal fade" id="viewShare" tabindex="-1" role="dialog" aria-labelledby="viewShareCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush text-left">
+                        <li class="ds-hover-modal list-group-item">
+                            <img src="images/facebook.png" alt="" srcset="">
+                            Share in Facebook
+                        </li>
+                        <li class="ds-hover-modal list-group-item">
+                            <img src="images/twitter.png" alt="" srcset="">
+                            Share in Twitter
+                        </li>
+                        <li class="ds-hover-modal list-group-item">
+                            <img src="images/link-symbol.png" alt="" srcset="">
+                            Copy link address</li>
+                        <li class="ds-hover-modal list-group-item">
+                            <img src="images/verified.png" alt="" srcset="">
+                            Save
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--TODO: This comment-->
+    <!-- Modal -->
+    <!-- <div class="modal fade" id="viewComment" tabindex="-1" role="dialog" aria-labelledby="viewCommentCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 d-inline-flex">
+                                <!--TODO: this card imageS--
+                                <div class="card transform-on-hover w-100">
+                                    <div class="card-header Linear-Gradient-nav">
+                                        <img class="box-icon float-left" src="images/user.jpg" alt="" sizes=""
+                                            srcset="">
+                                        <a class="d-inline-flex p-2 ds-username-title" href="#">Username</a>
+                                    </div>
+                                    <div class="card-body bg-transparent">
+                                        <img class="card-img-top img-fluid" src="images/Images/014.jpg"
+                                            alt="Card image cap">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!--TODO:THIS COMMENT DISQUE--
+                                <div id="disqus_thread"></div>
+                                <script>
+
+                                    /**
+                                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                                    /*
+                                    var disqus_config = function () {
+                                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                                    };
+                                    */
+                                    (function () { // DON'T EDIT BELOW THIS LINE
+                                        var d = document, s = d.createElement('script');
+                                        s.src = 'https://127-0-0-1-5500.disqus.com/embed.js';
+                                        s.setAttribute('data-timestamp', +new Date());
+                                        (d.head || d.body).appendChild(s);
+                                    })();
+                                </script>
+                                <noscript>Please enable JavaScript to view the <a
+                                        href="https://disqus.com/?ref_noscript">comments powered by
+                                        Disqus.</a></noscript>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    </div>
+    <!--TODO: That's button upload-->
+    <div class="ds-upload position-fixed">
+        <button class="" id="login" type="" onclick="location.href='/upload';"> <img src="images/photo.png" alt=""
+                srcset=""> Upload</button>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/owl/owl.carousel.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/owl/owl.js"></script>
+    <script src="js/totop.js"></script>
+    <script id="dsq-count-scr" src="//127-0-0-1-5500.disqus.com/count.js" async></script>
+</body>
+
+</html>

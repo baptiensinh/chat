@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile - <%= username_show %></title>
+    <link rel="stylesheet" href="css/owl/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/hover.css">
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+</head>
+
+<body>
+    <!--TODO:Back to top-->
+    <a id="button"></a>
+
+    <!-- /#sidebar-wrapper -->
+    <!--TODO: This navigation-->
+    <nav class="navbar navbar-expand-lg Linear-Gradient-nav fixed-top fix-z-1">
+        <div class="container">
+            <a class="navbar-brand ds-hover nav-link" href="/home">
+                <img src="images/7.png" width="20" height="auto" alt="logo">
+                3RAW
+            </a>
+            <!--TODO:SEARCH-->
+            <form action="/search" method="post">
+                <div class="search-navbar" id="search-navbar">
+                    <input class="" type="search" name="search" id="search"
+                        placeholder="Search anything you need: images, #tag, @user, etc...">
+                </div>
+            </form>
+
+            <!--TODO:END SEARCH-->
+            <!--TODO: upload image-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <!--TODO: show name on navbar -->
+                    <% if(username_nav.length>0){ %>
+                        <li class="ds-hover nav-item text-white">
+                            <a class="nav-link pl-1" href="../home/profile">Hello: <%= username_nav %></a>
+                        </li>
+                        <li class="ds-hover nav-item text-white">
+                            <a class="nav-link pl-1" href="../messenger">Message</a>
+                        </li>
+                        <li class="ds-hover nav-item text-white">
+                            <a class="nav-link" href="../home/logout">Logout</a>
+                        </li>
+                        <% } else{ %>
+                        <li class="ds-hover nav-item text-white">
+                            <a class="nav-link pl-1" href="../login">Login</a>
+                        </li>
+                        <li class="ds-hover nav-item text-white">
+                            <a class="nav-link" href="../register">Create a account</a>
+                        </li>
+                        <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="pt-5"> </div>
+    <div class="container pt-4">
+        <% if(username_nav.length > 0 && username_nav == username_show){ %>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <% if(change_avatar != null){ %>
+                        <a href="/ca/<%= id %>">
+                            <img class="box-icon-profile float-left" src="uploads/<%= change_avatar %>" alt="Click and change your avatar" sizes="" srcset="">
+                        </a>
+                    <% } else{ %>
+                        <a href="/ca/<%= id %>">
+                            <img class="box-icon-profile float-left" src="images/user.jpg" alt="Click and change your avatar" sizes="" srcset="">
+                        </a>
+                    <% } %>
+                </div>
+                <div class="col-md-8">
+                    <h1 class="display-5 text-white">
+                        <a href="/p/<%= id %>">
+                            <div class="row">
+                                <div class="col-md-12 ds-post1">
+                                    <button><%= username_show %></button>
+                                </div>
+                            </div>
+                        </a>
+                    </h1>
+                    <h1 class="display-5 text-white">
+                        <a href="/c/<%= id %>">
+                            <div class="row">
+                                <div class="col-md-12 ds-post1">
+                                    <button>Change password</button>
+                                </div>
+                            </div>
+                        </a>
+                    </h1>
+                    <h1 class="display-5 text-white">
+                        <div class="row">
+                            <div class="col-md-12 ds-post1">
+                                <button disabled="disabled">Delete account</button>
+                            </div>
+                        </div>
+                    </h1>
+                </div>
+            </div>
+        <% } else{ %>  
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <% if(change_avatar != null){ %>
+                        <img class="box-icon-profile float-left" src="uploads/<%= change_avatar %>" alt="Click and change your avatar" sizes="" srcset="">
+                    <% } else{ %>
+                        <img class="box-icon-profile float-left" src="images/user.jpg" alt="Click and change your avatar" sizes="" srcset="">
+                    <% } %>
+                </div>
+                <div class="col-md-8">
+                    <h1 class="display-5 text-white">
+                        <a href="/p/<%= id %>">
+                            <div class="row">
+                                <div class="col-md-12 ds-post1">
+                                    <button><%= username_show %></button>
+                                </div>
+                            </div>
+                        </a>
+                    </h1>
+                    <h1 class="display-5 text-white">
+                        <div class="row">
+                            <div disabled="disabled" class="col-md-12 ds-post1">
+                                <button>Change password - Not have permission</button>
+                            </div>
+                        </div>
+                    </h1>
+                    <h1 class="display-5 text-white">
+                        <div class="row">
+                            <div class="col-md-12 ds-post1">
+                                <button disabled="disabled">Delete account - Not have permission</button>
+                            </div>
+                        </div>
+                    </h1>
+                </div>
+            </div>
+        <% } %>
+
+        <div class="row pt-3">
+            <div class="col-md-12 ds-post">
+                <button disabled="disabled">POSTS</button>
+            </div>
+        </div>
+        <div class="row">
+            <section class="gallery-block grid-gallery">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                        <% if(data){%>
+                            <% for(var i=0;i< data.length;i++){%>
+                                <% if(data[i].status_photo == 0 || data[i].status_photo == 1){%>
+                                    <div class="col-md-12 col-lg-4 col-md-3 pt-4 item">
+                                        <div class="card ds-card">
+                                            <a class="lightbox" href="/u/<%= data[i].id %>">
+                                                <img class="img-fluid image scale-on-hover box-profile" src="uploads/<%= data[i].images_url %>">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title"><%= data[i].title %></h5>
+                                                <p class="card-text">Description: <%= data[i].images_description %></p>
+                                                <% if(data[i].status_photo == 0 ){%>
+                                                    <p class="card-text">Waiting for verify. <img src="images/delete.png" alt="" srcset=""></p>
+                                                <% } %> 
+                                                <% if(data[i].status_photo == 1 ){%>
+                                                    <p class="card-text">Verify by Admin <img src="images/check-mark.png" alt="" srcset=""></p>
+                                                <% } %>
+                                                <% if (username_nav.length > 0 && username_nav == username_show) { %>
+                                                    <div class="text-center">
+                                                        <a href="/delete/<%= data[i].id %>/<%= data[i].id_user %>">
+                                                            <button type="button" class="btn btn-danger">Delete</button>
+                                                        </a>
+                                                        <a href="/edit/<%= data[i].id %>/<%= data[i].id_user %>">
+                                                            <button type="button" class="btn btn-info">Edit</button>
+                                                        </a>
+                                                    </div>  
+                                                <% } %>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                <%}%>
+                            <%}%>
+                        <%}%>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="pt-5"></div>
+    <a href="../upload">
+        <div class="ds-upload position-fixed">
+            <button class="" id="login" type=""> <img src="images/photo.png" alt="" srcset=""> Upload</button>
+        </div>
+    </a>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/owl/owl.carousel.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/totop.js"></script>
+</body>
+
+</html>
